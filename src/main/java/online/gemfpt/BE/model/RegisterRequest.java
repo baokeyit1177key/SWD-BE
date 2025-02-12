@@ -15,10 +15,4 @@ public class RegisterRequest {
     String email;
     String name;
     String password;
-
-
-
-
-
-
 }

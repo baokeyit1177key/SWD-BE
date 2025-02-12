@@ -47,6 +47,7 @@ public class AuthenticationService implements UserDetailsService {
         account.setEmail(registerRequest.getEmail());
         account.setRole(RoleEnum.STAFF);
         account.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+        System.out.println("Registering: " + registerRequest.getEmail());
 
         return authenticationRepository.save(account);
     }
@@ -138,5 +139,25 @@ public class AuthenticationService implements UserDetailsService {
             throw new AccountNotFoundException("Account not found with email: " + email);
         }
         return account;
+    }
+
+     public Account createAccount(CreateAccountRequest request) {
+        if (request.getEmail() == null || request.getEmail().isEmpty() ||
+            request.getPassword() == null || request.getPassword().isEmpty() ||
+            request.getName() == null || request.getName().isEmpty()) {
+            throw new BadRequestException("Missing required fields");
+        }
+
+        if (authenticationRepository.findAccountByEmail(request.getEmail()) != null) {
+            throw new BadRequestException("Email already exists");
+        }
+
+        Account account = new Account();
+        account.setEmail(request.getEmail());
+        account.setPassword(passwordEncoder.encode(request.getPassword()));
+        account.setName(request.getName());
+        account.setRole(RoleEnum.STAFF);
+
+        return authenticationRepository.save(account);
     }
 }

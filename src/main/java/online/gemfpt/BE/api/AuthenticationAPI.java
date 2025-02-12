@@ -23,21 +23,16 @@ public class AuthenticationAPI {
     @Autowired
     AuthenticationService authenticationService;
 
-
-
-
+     @PostMapping("/createAccount")
+    public ResponseEntity<?> createAccount(@RequestBody CreateAccountRequest request) {
+        Account account = authenticationService.createAccount(request);
+        return ResponseEntity.ok(account);
+    }
        @PostMapping("/login")
     public ResponseEntity login (@RequestBody LoginRequest loginRequest){
         Account account = authenticationService.login(loginRequest);
         return ResponseEntity.ok(account);
     }
-
-
-
-
-//    @GetMapping("/admin_only")
-//    @PreAuthorize("hasAuthority('ADMIN')")
-//    public ResponseEntity getAdmin(){return  ResponseEntity.ok("admin ok");}
 
     @PostMapping("/register")
     public ResponseEntity Register (@RequestBody RegisterRequest responseRequest){

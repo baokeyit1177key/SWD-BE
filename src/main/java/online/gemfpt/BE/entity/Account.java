@@ -30,6 +30,8 @@ public class Account implements UserDetails {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
+    private String Name;
+
     @Enumerated(EnumType.STRING)
     private RoleEnum role;
 
