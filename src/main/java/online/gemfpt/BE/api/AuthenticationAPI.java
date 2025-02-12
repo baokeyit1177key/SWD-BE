@@ -23,55 +23,16 @@ public class AuthenticationAPI {
     @Autowired
     AuthenticationService authenticationService;
 
-    @PostMapping("/login_google")
-public ResponseEntity<AccountResponse> loginGoogle(@RequestBody LoginGoogleRequest loginGoogleRequest) {
-    AccountResponse accountResponse = authenticationService.loginGoogle(loginGoogleRequest);
-    return ResponseEntity.ok(accountResponse);
-}
 
-  @PostMapping("/staff-login-google")
-    public ResponseEntity<AccountResponse> staffLoginGoogle(@RequestBody LoginGoogleRequest loginGoogleRequest) {
-        AccountResponse accountResponse = authenticationService.staffLoginGoogle(loginGoogleRequest);
-        return ResponseEntity.ok(accountResponse);
-    }
+
+
        @PostMapping("/login")
     public ResponseEntity login (@RequestBody LoginRequest loginRequest){
         Account account = authenticationService.login(loginRequest);
         return ResponseEntity.ok(account);
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
-      @DeleteMapping("/delete_account/{email}")
-    public ResponseEntity<Account> deleteAccountByEmail(@PathVariable String email) {
-        // Lấy thông tin người dùng hiện tại từ context
-        Account currentAccount = authenticationService.getCurrentAccount();
 
-        // Kiểm tra xem người dùng hiện tại có vai trò là ADMIN hay không
-        if (currentAccount.getRole() != RoleEnum.ADMIN) {
-            // Nếu không phải ADMIN, trả về lỗi hoặc xử lý phù hợp
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
-
-        // Tiếp tục xử lý chỉ khi người dùng có vai trò ADMIN
-        Account account = authenticationService.deleteAccountByEmail(email);
-        return ResponseEntity.ok(account);
-    }
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @PutMapping("/admin_edit_account/{email}")
-    public ResponseEntity<Account> editAccountByEmail(@PathVariable String email, @RequestBody EditAccountRequest editAccountRequest) {
-        // Lấy thông tin người dùng hiện tại từ context
-        Account currentAccount = authenticationService.getCurrentAccount();
-
-        // Kiểm tra xem người dùng hiện tại có vai trò là ADMIN hay không
-        if (currentAccount.getRole() != RoleEnum .ADMIN) {
-            // Nếu không phải ADMIN, trả về lỗi hoặc xử lý phù hợp
-            return ResponseEntity.status(HttpStatus .FORBIDDEN).build();
-        }
-
-        // Tiếp tục xử lý chỉ khi người dùng có vai trò ADMIN
-        Account account = authenticationService.editAccountByEmail(email, editAccountRequest);
-        return ResponseEntity.ok(account);
-    }
 
 
 //    @GetMapping("/admin_only")

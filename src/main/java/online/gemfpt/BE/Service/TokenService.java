@@ -17,7 +17,7 @@ public class TokenService {
     @Autowired
     AuthenticationRepository authenticationRepository;
 
-    private final String SECRET_KEY = "HT4bb6d1dfbafb64a681139d1586b6f1160d18159afd57c8c79136d7490630407c";
+    private final String SECRET_KEY = "b1cd4853ef4faca9043b72d6a918080014db9eedac930dff2e58b63e17fb2f87";
 
     private SecretKey getSigninKey(){
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
