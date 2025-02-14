@@ -1,9 +1,6 @@
 package online.gemfpt.BE.exception.handler;
 
 import online.gemfpt.BE.exception.AccountNotFoundException;
-import online.gemfpt.BE.exception.CustomerDiscountNotFoundException;
-import online.gemfpt.BE.exception.InsufficientMoneyInStallException;
-import online.gemfpt.BE.exception.StallsSellNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
