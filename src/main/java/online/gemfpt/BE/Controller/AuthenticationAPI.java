@@ -1,4 +1,4 @@
-package online.gemfpt.BE.api;
+package online.gemfpt.BE.Controller;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import online.gemfpt.BE.entity.Account;
 import online.gemfpt.BE.Service.AuthenticationService;
