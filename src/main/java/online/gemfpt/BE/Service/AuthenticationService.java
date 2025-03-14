@@ -38,19 +38,25 @@ public class AuthenticationService implements UserDetailsService {
     PasswordEncoder passwordEncoder;
 
     public Account register(RegisterRequest registerRequest) {
-        if (registerRequest.getEmail() == null || registerRequest.getEmail().isEmpty() ||
-                registerRequest.getPassword() == null || registerRequest.getPassword().isEmpty()) {
-            throw new BadRequestException("Missing required fields");
-        }
-
-        Account account = new Account();
-        account.setEmail(registerRequest.getEmail());
-        account.setRole(RoleEnum.STAFF);
-        account.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-        System.out.println("Registering: " + registerRequest.getEmail());
-
-        return authenticationRepository.save(account);
+    if (registerRequest.getEmail() == null || registerRequest.getEmail().isEmpty() ||
+            registerRequest.getPassword() == null || registerRequest.getPassword().isEmpty()) {
+        throw new BadRequestException("Missing required fields");
     }
+
+    // Kiểm tra xem role có được cung cấp và có phải là HOCSINH hoặc PHUHUYNH không
+    if (registerRequest.getRole() == null ||
+        !(registerRequest.getRole() == RoleEnum.HOCSINH || registerRequest.getRole() == RoleEnum.PHUHUYNH)) {
+        throw new BadRequestException("Invalid role. Only HOCSINH and PHUHUYNH roles are allowed.");
+    }
+
+    Account account = new Account();
+    account.setEmail(registerRequest.getEmail());
+    account.setRole(registerRequest.getRole());
+    account.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+    System.out.println("Registering: " + registerRequest.getEmail());
+
+    return authenticationRepository.save(account);
+}
 
 
     public Account login(LoginRequest loginRequest) {
@@ -141,23 +147,35 @@ public class AuthenticationService implements UserDetailsService {
         return account;
     }
 
-     public Account createAccount(CreateAccountRequest request) {
-        if (request.getEmail() == null || request.getEmail().isEmpty() ||
-            request.getPassword() == null || request.getPassword().isEmpty() ||
-            request.getName() == null || request.getName().isEmpty()) {
-            throw new BadRequestException("Missing required fields");
-        }
 
-        if (authenticationRepository.findAccountByEmail(request.getEmail()) != null) {
-            throw new BadRequestException("Email already exists");
-        }
-
-        Account account = new Account();
-        account.setEmail(request.getEmail());
-        account.setPassword(passwordEncoder.encode(request.getPassword()));
-        account.setName(request.getName());
-        account.setRole(RoleEnum.STAFF);
-
-        return authenticationRepository.save(account);
+public Account updateAccountRoleByEmail(UpdateAccountRoleByEmailRequest request) {
+    Account account = authenticationRepository.findAccountByEmail(request.getEmail());
+    if (account == null) {
+        throw new AccountNotFoundException("Account not found with email: " + request.getEmail());
     }
+    account.setRole(request.getRole());
+    return authenticationRepository.save(account);
+}
+
+
+
+//     public Account createAccount(CreateAccountRequest request) {
+//        if (request.getEmail() == null || request.getEmail().isEmpty() ||
+//            request.getPassword() == null || request.getPassword().isEmpty() ||
+//            request.getName() == null || request.getName().isEmpty()) {
+//            throw new BadRequestException("Missing required fields");
+//        }
+//
+//        if (authenticationRepository.findAccountByEmail(request.getEmail()) != null) {
+//            throw new BadRequestException("Email already exists");
+//        }
+//
+//        Account account = new Account();
+//        account.setEmail(request.getEmail());
+//        account.setPassword(passwordEncoder.encode(request.getPassword()));
+//        account.setName(request.getName());
+//        account.setRole(RoleEnum.STAFF);
+//
+//        return authenticationRepository.save(account);
+//    }
 }

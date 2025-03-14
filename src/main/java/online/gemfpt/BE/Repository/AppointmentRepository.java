@@ -1,10 +1,9 @@
 package online.gemfpt.BE.Repository;
 
-
-import online.gemfpt.BE.entity.AnswerOption;
+import online.gemfpt.BE.entity.Appointment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AnswerOptionRepository extends JpaRepository<AnswerOption, Long> {
+public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 }

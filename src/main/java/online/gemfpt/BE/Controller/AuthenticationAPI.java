@@ -27,11 +27,11 @@ public class AuthenticationAPI {
     @Autowired
     private SurveyService surveyService;
 
-     @PostMapping("/createAccount")
-    public ResponseEntity<?> createAccount(@RequestBody CreateAccountRequest request) {
-        Account account = authenticationService.createAccount(request);
-        return ResponseEntity.ok(account);
-    }
+//     @PostMapping("/createAccount")
+//    public ResponseEntity<?> createAccount(@RequestBody CreateAccountRequest request) {
+//        Account account = authenticationService.createAccount(request);
+//        return ResponseEntity.ok(account);
+//    }
        @PostMapping("/login")
     public ResponseEntity login (@RequestBody LoginRequest loginRequest){
         Account account = authenticationService.login(loginRequest);
@@ -88,44 +88,53 @@ public ResponseEntity<String> testEndpoint() {
     return ResponseEntity.ok("test");
 }
 
-//-------------------------------------------------//
- @PostMapping("/creatervey")
-    public ResponseEntity<String> createSurvey(@RequestBody SurveyRequest request) {
-        surveyService.createSurvey(request);
-        return ResponseEntity.ok("OK");
+@PutMapping("/updateRoleByEmail")
+    public ResponseEntity<Account> updateAccountRoleByEmail(
+            @RequestBody UpdateAccountRoleByEmailRequest request) {
+        Account updatedAccount = authenticationService.updateAccountRoleByEmail(request);
+        return ResponseEntity.ok(updatedAccount);
     }
 
-    @GetMapping("/get-all-sevey")
-    public ResponseEntity<List<SurveyResponse>> getAllSurveys() {
-        List<SurveyResponse> responses = surveyService.getAllSurveys();
-        return ResponseEntity.ok(responses);
-    }
 
-    @GetMapping("/get-sevey{id}")
-    public ResponseEntity<SurveyResponse> getSurveyById(@PathVariable Long id) {
-        SurveyResponse response = surveyService.getSurveyById(id);
-        if (response == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(response);
-    }
 
-      @PutMapping("/Update-servey-{id}")
-    public ResponseEntity<SurveyResponse> updateSurvey(@PathVariable Long id, @RequestBody SurveyRequest request) {
-        SurveyResponse response = surveyService.updateSurvey(id, request);
-        return ResponseEntity.ok(response);
-    }
-
-    /**
-     * Xóa một khảo sát theo ID.
-     * @param id ID của khảo sát cần xóa.
-     * @return "OK" nếu xóa thành công.
-     */
-    @DeleteMapping("/deleteservey{id}")
-    public ResponseEntity<String> deleteSurvey(@PathVariable Long id) {
-        String result = surveyService.deleteSurvey(id);
-        return ResponseEntity.ok(result);
-    }
+////-------------------------------------------------//
+// @PostMapping("/creatervey")
+//    public ResponseEntity<String> createSurvey(@RequestBody SurveyRequest request) {
+//        surveyService.createSurvey(request);
+//        return ResponseEntity.ok("OK");
+//    }
+//
+//    @GetMapping("/get-all-sevey")
+//    public ResponseEntity<List<SurveyResponse>> getAllSurveys() {
+//        List<SurveyResponse> responses = surveyService.getAllSurveys();
+//        return ResponseEntity.ok(responses);
+//    }
+//
+//    @GetMapping("/get-sevey{id}")
+//    public ResponseEntity<SurveyResponse> getSurveyById(@PathVariable Long id) {
+//        SurveyResponse response = surveyService.getSurveyById(id);
+//        if (response == null) {
+//            return ResponseEntity.notFound().build();
+//        }
+//        return ResponseEntity.ok(response);
+//    }
+//
+//      @PutMapping("/Update-servey-{id}")
+//    public ResponseEntity<SurveyResponse> updateSurvey(@PathVariable Long id, @RequestBody SurveyRequest request) {
+//        SurveyResponse response = surveyService.updateSurvey(id, request);
+//        return ResponseEntity.ok(response);
+//    }
+//
+//    /**
+//     * Xóa một khảo sát theo ID.
+//     * @param id ID của khảo sát cần xóa.
+//     * @return "OK" nếu xóa thành công.
+//     */
+//    @DeleteMapping("/deleteservey{id}")
+//    public ResponseEntity<String> deleteSurvey(@PathVariable Long id) {
+//        String result = surveyService.deleteSurvey(id);
+//        return ResponseEntity.ok(result);
+//    }
 
 
 }
