@@ -45,9 +45,11 @@ public class Filter extends OncePerRequestFilter {
             "/api/Gem/test",
             "/createAccount",
             "/staff-login-google",
+
             "/api/surveys/**",
             "/api/surveysubmit/**",
             "/api/appointments/**"
+            "/api/programs/**"
 
 
     );
