@@ -21,21 +21,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Account not found" );
     }
 
-     @ExceptionHandler(StallsSellNotFoundException .class)
-    public ResponseEntity<String> handleStallsSellNotFoundException(StallsSellNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Stalls Sell Id Not Found");
-    }
-
-     @ExceptionHandler(InsufficientMoneyInStallException .class)
-    public ResponseEntity<Object> handleInsufficientMoneyInStallException(
-            InsufficientMoneyInStallException ex, WebRequest  request) {
-        String bodyOfResponse = ex.getMessage();
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bodyOfResponse);
-    }
 
 
-    @ExceptionHandler(CustomerDiscountNotFoundException .class)
-    public ResponseEntity<String> handleCustomerDiscountNotFoundException(CustomerDiscountNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-    }
 }

@@ -45,7 +45,8 @@ public class Filter extends OncePerRequestFilter {
             "/api/metalprices/active-types",
             "/api/Gem/test",
             "/createAccount",
-            "/staff-login-google"
+            "/staff-login-google",
+            "/api/programs/**"
 
     );
 
