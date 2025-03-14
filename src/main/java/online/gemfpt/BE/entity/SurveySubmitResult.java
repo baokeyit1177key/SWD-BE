@@ -25,7 +25,7 @@ public class SurveySubmitResult {
     private String surveyName;     // Tên khảo sát
     private Long userId;           // ID người làm khảo sát
     private String email;          // Email của người làm khảo sát
-    private int totalScore;        // Tổng điểm của bài làm
+    private int totalScore;        // Tổng điểm của bài làm khảo sát
     private LocalDateTime submittedAt; // Thời gian nộp bài
 
     @OneToMany(mappedBy = "surveySubmitResult", cascade = CascadeType.ALL, orphanRemoval = true)

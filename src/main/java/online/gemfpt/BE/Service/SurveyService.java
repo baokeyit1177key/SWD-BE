@@ -1,6 +1,7 @@
 package online.gemfpt.BE.Service;
 
 import online.gemfpt.BE.Repository.SurveyRepository;
+import online.gemfpt.BE.entity.AnswerOption;
 import online.gemfpt.BE.entity.Question;
 import online.gemfpt.BE.entity.Survey;
 import online.gemfpt.BE.model.AnswerOptionResponse;
@@ -43,7 +44,7 @@ public class SurveyService {
             question.setSurvey(survey);  // Liên kết câu hỏi với khảo sát
 
             // Chuyển danh sách đáp án từ request thành danh sách AnswerOption entity
-            List<AnswerOption> answerOptions = q.getAnswerOptions().stream().map(a -> {
+            List<AnswerOption > answerOptions = q.getAnswerOptions().stream().map(a -> {
                 AnswerOption answerOption = new AnswerOption();
                 answerOption.setOptionText(a.getAnswerText());  // Gán nội dung đáp án
                 answerOption.setScore(a.getScore());            // Gán điểm số
