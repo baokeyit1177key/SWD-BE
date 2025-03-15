@@ -50,7 +50,8 @@ public class Filter extends OncePerRequestFilter {
             "/api/surveysubmit/**",
             "/api/appointments/**",
             "/api/programs/**",
-            "/api/posts/**"
+            "/api/posts/**",
+            "/api/reports/**"
 
 
     );
